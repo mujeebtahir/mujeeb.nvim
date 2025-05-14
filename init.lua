@@ -985,6 +985,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   require 'custom.plugins.init',
+  require 'custom.plugins.git',
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   -- { import = 'custom.plugins' },
   --
