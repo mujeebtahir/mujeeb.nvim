@@ -35,6 +35,9 @@ return {
     opts = {
       width = 127,
     },
+    keys = {
+      { '<leader>np', ':NoNeckPain<CR>', desc = 'NoNeckPain', silent = true, noremap = true },
+    },
   },
   {
     'azabiong/vim-highlighter',
