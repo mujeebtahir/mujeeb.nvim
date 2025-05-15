@@ -12,6 +12,22 @@ return {
     },
     cmd = 'Neogit',
     config = true,
+    keys = {
+      {
+        '<leader>gs',
+        function()
+          require('neogit').open()
+        end,
+        desc = 'Neogit open',
+        silent = true,
+        noremap = true,
+      },
+      { '<leader>gc', ':Neogit commit<CR>', desc = 'Neogit git commit', silent = true, noremap = true },
+      { '<leader>gp', ':Neogit pull<CR>', desc = 'Neogit git pull', silent = true, noremap = true },
+      { '<leader>gP', ':Neogit push<CR>', desc = 'Neogit git push', silent = true, noremap = true },
+      { '<leader>gb', ':Telescope git_branches<CR>', desc = 'Neogit git branch', silent = true, noremap = true },
+      { '<leader>gB', ':G blame<CR>', desc = 'Neogit git blame', silent = true, noremap = true },
+    },
     --[[ opts = {
       on_attach = function()
         local neogit = require 'neogit'
