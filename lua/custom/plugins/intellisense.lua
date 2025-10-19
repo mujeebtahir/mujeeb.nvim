@@ -271,6 +271,19 @@ return {
           filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'h' },
           -- capabilities = {},
         },
+        lemminx = {
+          cmd = { 'lemminx' }, -- use the manually installed binary
+          filetypes = { 'xml', 'xsd', 'xslt', 'svg' },
+          root_dir = require('lspconfig.util').root_pattern('.git', '.'),
+          -- optional custom settings
+          settings = {
+            xml = {
+              format = {
+                enabled = true,
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -305,6 +318,7 @@ return {
         'stylua', -- Used to format Lua code
         'markdownlint',
         'clangd',
+        'lemminx',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -330,16 +344,6 @@ return {
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -347,6 +351,7 @@ return {
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
         local disable_filetypes = { c = true, h = true, cpp = true }
+        -- local disable_filetypes = {}
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -358,11 +363,24 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
+        h = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+    },
+    keys = {
+      {
+        '<leader>f',
+        function()
+          require('conform').format { async = true, lsp_format = 'fallback', lsp_fallback = false }
+        end,
+        mode = '',
+        desc = '[F]ormat buffer',
       },
     },
   },
