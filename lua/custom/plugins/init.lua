@@ -30,6 +30,57 @@ return {
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  -- To render/preview Markdown files inside vim buffer
+  --  {
+  --    'Urtlp/markview.nvim',
+  --    lazy = false,
+  --    ft = { 'markdown' }, -- load only on .md
+  --    cmd = { 'MarkViewToggle', 'MarkViewOpen', 'MarkViewClose' }, -- lazy load
+  --    dependencies = {
+  --      'nvim-lua/plenary.nvim',
+  --      'MunifTanjim/nui.nvim',
+  --    },
+  --    keys = {
+  --      {
+  --        '<leader>mv',
+  --        function()
+  --          require('markview').toggle_preview()
+  --        end,
+  --        desc = 'Toggle MarkView',
+  --      },
+  --    },
+  --  },
+  {
+    'OXY2DEV/markview.nvim',
+    ft = { 'markdown' }, -- Load only for markdown files
+    cmd = { 'MarkViewOpen', 'MarkViewToggle' }, -- Don't run automatically
+    lazy = false,
+    opts = {}, -- uses defaults
+    config = function()
+      require('markview').setup()
+      -- Optional: Define a user command to run markdownlint manually
+      vim.api.nvim_create_user_command('MarkdownLint', function()
+        require('lint').try_lint 'markdownlint'
+      end, {})
+    end,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+  -- To render/preview Markdown files in a browser
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && yarn install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+      vim.g.mkdp_auto_start = 0 -- set to 1 if you want preview to start on open
+      vim.g.mkdp_auto_close = 1
+      vim.g.mkdp_browser = '' -- leave empty to use default browser
+    end,
+    ft = { 'markdown' },
+  },
+
   {
     'shortcuts/no-neck-pain.nvim',
     version = '*',
