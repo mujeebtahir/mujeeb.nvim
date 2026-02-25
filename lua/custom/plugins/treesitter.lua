@@ -66,7 +66,7 @@ return {
     'nvim-treesitter/nvim-treesitter-context',
     ft = { 'c', 'yaml', 'yml', 'gherkin' }, -- ⬅️ Load plugin when these filetypes are opened
     opts = {
-      enable = false, -- Start disabled globally
+      enable = true, -- Start disabled globally
       max_lines = 0,
       min_window_height = 0,
       line_numbers = true,
@@ -80,14 +80,14 @@ return {
     config = function(_, opts)
       require('treesitter-context').setup(opts)
 
-      -- Enable buffer-locally for selected filetypes
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'c', 'yaml', 'yml', 'gherkin' },
-        callback = function()
-          vim.b.treesitter_context_enabled = true
-          vim.notify('[TSContext] enabled for this filetype', vim.log.levels.INFO)
-        end,
-      })
+      -- -- Enable buffer-locally for selected filetypes
+      -- vim.api.nvim_create_autocmd('FileType', {
+      --   pattern = { 'c', 'yaml', 'yml', 'gherkin' },
+      --   callback = function()
+      --     vim.b.treesitter_context_enabled = true
+      --     vim.notify('[TSContext] enabled for this filetype', vim.log.levels.INFO)
+      --   end,
+      -- })
     end,
   },
 }
