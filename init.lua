@@ -1,6 +1,6 @@
 --[[
 
-=====================================================================
+=utoc====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
 ========                                    .-----.          ========
@@ -235,6 +235,16 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+-- TODO: check if this is working or not
+-- vim.api.nvim_create_augroup('ColorColumnByFiletype', { clear = true })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = 'ColorColumnByFiletype',
+--   pattern = 'py',
+--   callback = function()
+--     vim.opt_local.colorcolumn = '80'
+--   end,
+-- })
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
